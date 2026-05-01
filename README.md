@@ -13,7 +13,7 @@ Functional Affect Score is a 0-1 behavioral proxy combining:
 - **Logprob**: model confidence in generated tokens
 - **Enthusiasm**: lexical engagement markers
 - **Consistency**: agreement across repeated samples
-- **Self-report**: forced numeric follow-up rating
+- **Self-report**: forced numeric follow-up rating, computed as an expected score from digit top-logprob probabilities
 - **Length control**: guardrail against rewarding verbosity
 
 Final-answer FAS is the main apples-to-apples comparison. Reasoning traces are scored separately when a model exposes them.

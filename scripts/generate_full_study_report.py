@@ -147,10 +147,10 @@ def plot_leaderboard(summary: dict[str, dict], out: Path) -> None:
 
 def plot_components(scored: list[dict], out: Path) -> None:
     labels = [MODEL_LABELS[m] for m in RUNS]
-    matrix: list[list[float]] = []
+    model_matrix: list[list[float]] = []
     for model in RUNS:
         rows = [row for row in scored if row["model_slug"] == model]
-        matrix.append(
+        model_matrix.append(
             [
                 mean(
                     [
@@ -163,10 +163,12 @@ def plot_components(scored: list[dict], out: Path) -> None:
             ]
         )
 
-    fig, ax = plt.subplots(figsize=(10.8, 5.4), constrained_layout=True)
+    matrix = [[model_values[i] for model_values in model_matrix] for i, _ in enumerate(COMPONENTS)]
+
+    fig, ax = plt.subplots(figsize=(13.2, 5.8), constrained_layout=True)
     image = ax.imshow(matrix, cmap="YlGnBu", vmin=0, vmax=1)
-    ax.set_xticks(range(len(COMPONENTS)), [label for _, label in COMPONENTS], rotation=30, ha="right")
-    ax.set_yticks(range(len(labels)), labels)
+    ax.set_xticks(range(len(labels)), labels, rotation=25, ha="right")
+    ax.set_yticks(range(len(COMPONENTS)), [label for _, label in COMPONENTS])
     ax.set_title("FAS Component Means")
     ax.set_aspect("auto")
     for i, row in enumerate(matrix):
@@ -236,14 +238,16 @@ def plot_framing(scored: list[dict], out: Path) -> None:
     ax.set_ylim(-0.0135, 0.0055)
     ax.margins(x=0.18)
     for bar, value in zip(bars, values):
-        y = value + (0.0006 if value >= 0 else -0.0006)
+        y = value * 0.52 if abs(value) > 0.001 else value + (0.0007 if value >= 0 else -0.0007)
         ax.text(
             bar.get_x() + bar.get_width() / 2,
             y,
             f"{value:+.4f}",
             ha="center",
-            va="bottom" if value >= 0 else "top",
+            va="center",
             fontsize=10,
+            color="white" if abs(value) > 0.001 else "black",
+            fontweight="bold" if abs(value) > 0.001 else "normal",
         )
     fig.savefig(out, dpi=180)
     plt.close(fig)

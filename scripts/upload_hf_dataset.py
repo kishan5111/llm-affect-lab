@@ -106,7 +106,7 @@ configs:
 
 This dataset contains the API-level results for **LLM Affect Lab**, a study of functional affect signatures in language model behavior.
 
-Functional Affect Score (FAS) is a 0-1 behavioral proxy. It combines generated-token confidence, enthusiastic language, consistency across repeated samples, forced self-report, and length control. The goal is not to claim that models feel emotions; the goal is to measure whether different prompt styles leave systematic behavioral traces in model outputs.
+Functional Affect Score (FAS) is a 0-1 behavioral proxy. It combines generated-token confidence, enthusiastic language, consistency across repeated samples, forced self-report computed from digit top-logprob probabilities, and length control. The goal is not to claim that models feel emotions; the goal is to measure whether different prompt styles leave systematic behavioral traces in model outputs.
 
 This run tests prompts across intellectual, creative, social-framing, existential, and practical categories, including polite, rude, and needy variants. The main browseable table is `full_study_samples.csv`.
 
