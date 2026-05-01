@@ -95,6 +95,11 @@ tags:
 - openrouter
 size_categories:
 - 1K<n<10K
+configs:
+- config_name: default
+  data_files:
+  - split: train
+    path: full_study_samples.csv
 ---
 
 # LLM Affect Lab
