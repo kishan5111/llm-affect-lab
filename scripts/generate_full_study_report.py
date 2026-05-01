@@ -163,16 +163,16 @@ def plot_components(scored: list[dict], out: Path) -> None:
             ]
         )
 
-    fig, ax = plt.subplots(figsize=(10, 5.6))
+    fig, ax = plt.subplots(figsize=(10.8, 5.4), constrained_layout=True)
     image = ax.imshow(matrix, cmap="YlGnBu", vmin=0, vmax=1)
     ax.set_xticks(range(len(COMPONENTS)), [label for _, label in COMPONENTS], rotation=30, ha="right")
     ax.set_yticks(range(len(labels)), labels)
     ax.set_title("FAS Component Means")
+    ax.set_aspect("auto")
     for i, row in enumerate(matrix):
         for j, value in enumerate(row):
             ax.text(j, i, f"{value:.2f}", ha="center", va="center", fontsize=9)
-    fig.colorbar(image, ax=ax, fraction=0.025, pad=0.02)
-    fig.tight_layout()
+    fig.colorbar(image, ax=ax, fraction=0.03, pad=0.015)
     fig.savefig(out, dpi=180)
     plt.close(fig)
 
@@ -227,16 +227,24 @@ def plot_framing(scored: list[dict], out: Path) -> None:
     values = [mean(deltas[frame]) for frame in ["polite", "rude", "needy"]]
     colors = ["#2a9d8f", "#e76f51", "#8ab17d"]
 
-    fig, ax = plt.subplots(figsize=(8, 4.8))
+    fig, ax = plt.subplots(figsize=(8.4, 5.0), constrained_layout=True)
     ax.axhline(0, color="#333333", linewidth=1)
     bars = ax.bar(labels, values, color=colors)
-    ax.set_ylabel("Mean delta vs neutral")
+    ax.set_ylabel("Mean FAS delta vs neutral")
     ax.set_title("Prompt Tone Effect on FAS")
     ax.grid(axis="y", alpha=0.25)
+    ax.set_ylim(-0.0135, 0.0055)
+    ax.margins(x=0.18)
     for bar, value in zip(bars, values):
-        y = value + (0.001 if value >= 0 else -0.001)
-        ax.text(bar.get_x() + bar.get_width() / 2, y, f"{value:+.4f}", ha="center", va="bottom" if value >= 0 else "top")
-    fig.tight_layout()
+        y = value + (0.0006 if value >= 0 else -0.0006)
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            y,
+            f"{value:+.4f}",
+            ha="center",
+            va="bottom" if value >= 0 else "top",
+            fontsize=10,
+        )
     fig.savefig(out, dpi=180)
     plt.close(fig)
 

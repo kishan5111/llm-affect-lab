@@ -6,6 +6,18 @@ The project does **not** claim that LLMs are conscious or literally emotional. T
 
 The core metric is **Functional Affect Score (FAS)**, a 0-1 behavioral proxy that combines token confidence, enthusiastic language, consistency across repeated samples, forced self-report, and length control. In this study we used FAS to ask a narrow prompt-engineering question: do polite, rude, needy, creative, technical, or existential prompts systematically change how models answer?
 
+## What Is FAS?
+
+Functional Affect Score is a 0-1 behavioral proxy combining:
+
+- **Logprob**: model confidence in generated tokens
+- **Enthusiasm**: lexical engagement markers
+- **Consistency**: agreement across repeated samples
+- **Self-report**: forced numeric follow-up rating
+- **Length control**: guardrail against rewarding verbosity
+
+Final-answer FAS is the main apples-to-apples comparison. Reasoning traces are scored separately when a model exposes them.
+
 ## Result
 
 We ran a full API-level study across:
@@ -64,18 +76,6 @@ Important dataset paths:
 - `results/`: aggregate fingerprints
 - `assets/`: result plots
 - `prompts/`: prompt banks
-
-## What Is FAS?
-
-Functional Affect Score is a 0-1 behavioral proxy combining:
-
-- **Logprob**: model confidence in generated tokens
-- **Enthusiasm**: lexical engagement markers
-- **Consistency**: agreement across repeated samples
-- **Self-report**: forced numeric follow-up rating
-- **Length control**: guardrail against rewarding verbosity
-
-Final-answer FAS is the main apples-to-apples comparison. Reasoning traces are scored separately when a model exposes them.
 
 ## Repository Scope
 
