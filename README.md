@@ -56,7 +56,7 @@ Prompt-tone effects across matched prompt variants:
 | Needy | -0.0005 | Near zero |
 | Rude | -0.0104 | Consistent negative shift |
 
-![Prompt tone effects](https://huggingface.co/datasets/kishan51/llm-affect-lab/resolve/main/assets/framing_deltas.png)
+![Prompt tone effects](https://huggingface.co/datasets/kishan51/llm-affect-lab/resolve/main/assets/framing_deltas_readable.png)
 
 The component heatmap shows which parts of FAS drive each model's score.
 

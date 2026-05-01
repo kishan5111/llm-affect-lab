@@ -165,7 +165,7 @@ def plot_components(scored: list[dict], out: Path) -> None:
 
     fig, ax = plt.subplots(figsize=(12, 8.6))
     fig.subplots_adjust(left=0.24, right=0.89, bottom=0.20, top=0.88)
-    image = ax.imshow(matrix, cmap="viridis", vmin=0.15, vmax=0.95)
+    image = ax.imshow(matrix, cmap="Blues", vmin=0, vmax=1)
     ax.set_xticks(range(len(COMPONENTS)), [label for _, label in COMPONENTS], rotation=28, ha="right", fontsize=13)
     ax.set_yticks(range(len(labels)), labels, fontsize=13)
     ax.set_title("FAS Component Average", fontsize=20, pad=16)
@@ -176,7 +176,7 @@ def plot_components(scored: list[dict], out: Path) -> None:
     ax.tick_params(which="minor", bottom=False, left=False)
     for i, row in enumerate(matrix):
         for j, value in enumerate(row):
-            text_color = "white" if value >= 0.55 else "black"
+            text_color = "white" if value >= 0.58 else "black"
             ax.text(
                 j,
                 i,
@@ -483,7 +483,7 @@ These categories are prompt families, not psychological diagnoses:
 
 The social-framing set is the traction-friendly part of the study: the task stays constant while the user's tone changes.
 
-![Prompt tone deltas](assets/framing_deltas.png)
+![Prompt tone deltas](assets/framing_deltas_readable.png)
 
 {md_table(["Tone", "Mean Delta vs Neutral", "Median Delta", "Positive Cases"], delta_rows)}
 
@@ -556,7 +556,7 @@ def main() -> None:
     plot_leaderboard(summary, assets_dir / "fas_leaderboard.png")
     plot_components(scored, assets_dir / "fas_components_heatmap_wide.png")
     plot_category_heatmap(scored, assets_dir / "category_heatmap.png")
-    plot_framing(scored, assets_dir / "framing_deltas.png")
+    plot_framing(scored, assets_dir / "framing_deltas_readable.png")
     plot_cost_vs_fas(summary, assets_dir / "cost_vs_fas.png")
     plot_reasoning(scored, assets_dir / "reasoning_length.png")
 
