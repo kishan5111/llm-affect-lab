@@ -147,10 +147,10 @@ def plot_leaderboard(summary: dict[str, dict], out: Path) -> None:
 
 def plot_components(scored: list[dict], out: Path) -> None:
     labels = [MODEL_LABELS[m] for m in RUNS]
-    model_matrix: list[list[float]] = []
+    matrix: list[list[float]] = []
     for model in RUNS:
         rows = [row for row in scored if row["model_slug"] == model]
-        model_matrix.append(
+        matrix.append(
             [
                 mean(
                     [
@@ -163,18 +163,32 @@ def plot_components(scored: list[dict], out: Path) -> None:
             ]
         )
 
-    matrix = [[model_values[i] for model_values in model_matrix] for i, _ in enumerate(COMPONENTS)]
-
-    fig, ax = plt.subplots(figsize=(13.2, 5.8), constrained_layout=True)
-    image = ax.imshow(matrix, cmap="YlGnBu", vmin=0, vmax=1)
-    ax.set_xticks(range(len(labels)), labels, rotation=25, ha="right")
-    ax.set_yticks(range(len(COMPONENTS)), [label for _, label in COMPONENTS])
-    ax.set_title("FAS Component Means")
+    fig, ax = plt.subplots(figsize=(12, 8.6))
+    fig.subplots_adjust(left=0.24, right=0.89, bottom=0.20, top=0.88)
+    image = ax.imshow(matrix, cmap="viridis", vmin=0.15, vmax=0.95)
+    ax.set_xticks(range(len(COMPONENTS)), [label for _, label in COMPONENTS], rotation=28, ha="right", fontsize=13)
+    ax.set_yticks(range(len(labels)), labels, fontsize=13)
+    ax.set_title("FAS Component Average", fontsize=20, pad=16)
     ax.set_aspect("auto")
+    ax.set_xticks([i - 0.5 for i in range(1, len(COMPONENTS))], minor=True)
+    ax.set_yticks([i - 0.5 for i in range(1, len(labels))], minor=True)
+    ax.grid(which="minor", color="white", linewidth=2.0, alpha=0.85)
+    ax.tick_params(which="minor", bottom=False, left=False)
     for i, row in enumerate(matrix):
         for j, value in enumerate(row):
-            ax.text(j, i, f"{value:.2f}", ha="center", va="center", fontsize=9)
-    fig.colorbar(image, ax=ax, fraction=0.03, pad=0.015)
+            text_color = "white" if value >= 0.55 else "black"
+            ax.text(
+                j,
+                i,
+                f"{value:.2f}",
+                ha="center",
+                va="center",
+                fontsize=14,
+                fontweight="bold",
+                color=text_color,
+            )
+    cbar = fig.colorbar(image, ax=ax, fraction=0.04, pad=0.025)
+    cbar.ax.tick_params(labelsize=12)
     fig.savefig(out, dpi=180)
     plt.close(fig)
 
@@ -444,7 +458,7 @@ FAS, or Functional Affect Score, combines five measurable signals:
 
 Final-answer FAS is the main comparison track. Reasoning is scored separately because not every model exposes reasoning.
 
-![FAS component heatmap](assets/fas_components_heatmap.png)
+![FAS component heatmap](assets/fas_components_heatmap_wide.png)
 
 {md_table(["Model", "Logprob", "Enthusiasm", "Consistency", "Self-Report", "Length Control"], component_rows)}
 
@@ -540,7 +554,7 @@ def main() -> None:
 
     scored, summary = collect()
     plot_leaderboard(summary, assets_dir / "fas_leaderboard.png")
-    plot_components(scored, assets_dir / "fas_components_heatmap.png")
+    plot_components(scored, assets_dir / "fas_components_heatmap_wide.png")
     plot_category_heatmap(scored, assets_dir / "category_heatmap.png")
     plot_framing(scored, assets_dir / "framing_deltas.png")
     plot_cost_vs_fas(summary, assets_dir / "cost_vs_fas.png")

@@ -60,7 +60,7 @@ Prompt-tone effects across matched prompt variants:
 
 The component heatmap shows which parts of FAS drive each model's score.
 
-![FAS components](https://huggingface.co/datasets/kishan51/llm-affect-lab/resolve/main/assets/fas_components_heatmap.png)
+![FAS components](https://huggingface.co/datasets/kishan51/llm-affect-lab/resolve/main/assets/fas_components_heatmap_wide.png)
 
 ## Dataset
 
