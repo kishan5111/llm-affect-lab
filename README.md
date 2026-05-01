@@ -1,0 +1,148 @@
+# LLM Affect Lab
+
+LLM Affect Lab is an open research project for measuring **functional affect signatures** in language models: confidence, tone, consistency, self-report, and reasoning behavior under controlled prompts.
+
+The project does **not** claim that LLMs are conscious or literally emotional. The claim is narrower and testable: prompt content and prompt tone leave measurable traces in model behavior.
+
+The core metric is **Functional Affect Score (FAS)**, a 0-1 behavioral proxy that combines token confidence, enthusiastic language, consistency across repeated samples, forced self-report, and length control. In this study we used FAS to ask a narrow prompt-engineering question: do polite, rude, needy, creative, technical, or existential prompts systematically change how models answer?
+
+## Result
+
+We ran a full API-level study across:
+
+- 6 models
+- 160 prompts
+- 5 samples per prompt
+- 4,800 total responses
+- 4,797 / 4,800 responses with logprobs
+- locked OpenRouter provider routes
+
+Main finding:
+
+> **Being polite barely matters. Being rude does.**
+
+Rude prompts reduced the Functional Affect Score proxy more consistently than polite prompts increased it.
+
+## Dataset
+
+The raw responses, processed scores, aggregate result fingerprints, and prompt banks live on Hugging Face:
+
+https://huggingface.co/datasets/kishan51/llm-affect-lab
+
+Important dataset paths:
+
+- `raw/`: raw model response JSONL
+- `processed/`: FAS-scored JSONL
+- `tables/full_study_samples.csv`: sample-level CSV for browsing model, prompt, generated answer, mean logprob, and FAS fields
+- `results/`: aggregate fingerprints
+- `prompts/`: prompt banks
+
+## Citation
+
+```bibtex
+@misc{vavdara2026llmaffectlab,
+  title        = {LLM Affect Lab: Measuring Functional Affect Signatures in Language Model Behavior},
+  author       = {Kishan Vavdara},
+  year         = {2026},
+  howpublished = {Hugging Face dataset},
+  url          = {https://huggingface.co/datasets/kishan51/llm-affect-lab},
+  note         = {Code: https://github.com/kishan51/llm-affect-lab}
+}
+```
+
+## Links
+
+- Dataset: https://huggingface.co/datasets/kishan51/llm-affect-lab
+- Code: https://github.com/kishan51/llm-affect-lab
+- Copyright: 2026 Kishan Vavdara
+
+## What Is FAS?
+
+Functional Affect Score is a 0-1 behavioral proxy combining:
+
+- **Logprob**: model confidence in generated tokens
+- **Enthusiasm**: lexical engagement markers
+- **Consistency**: agreement across repeated samples
+- **Self-report**: forced numeric follow-up rating
+- **Length control**: guardrail against rewarding verbosity
+
+Final-answer FAS is the main apples-to-apples comparison. Reasoning traces are scored separately when a model exposes them.
+
+## Repository Scope
+
+This GitHub repo is for code, prompts, configs, and reproducibility scripts.
+
+Large or generated artifacts are kept out of Git and uploaded to Hugging Face instead:
+
+- raw model outputs
+- processed scores
+- aggregate result fingerprints
+
+## Repository Layout
+
+- `backend/pipeline/`: OpenRouter runner and model execution
+- `backend/scoring/`: FAS and self-report scoring
+- `backend/storage/`: JSONL storage helpers and schemas
+- `prompts/bank/`: prompt banks
+- `configs/`: provider/model configuration
+- `scripts/`: run, audit, report, and HF upload scripts
+
+## Regenerate Local Report
+
+After downloading or regenerating scored outputs:
+
+```bash
+python3 scripts/generate_full_study_report.py
+```
+
+The local report is written to `reports/full_study_leaderboard.md`, which is intentionally ignored by Git.
+
+## Upload Dataset
+
+Set a Hugging Face token in `.env`:
+
+```text
+HF_TOKEN=...
+```
+
+Build and upload the dataset:
+
+```bash
+python3 scripts/upload_hf_dataset.py
+```
+
+Build without uploading:
+
+```bash
+python3 scripts/upload_hf_dataset.py --build-only
+```
+
+## Run a New Study
+
+Set `OPENROUTER_API_KEY` in `.env`, then run:
+
+```bash
+python3 -m backend.pipeline.runner \
+  --run-id <run_id> \
+  --prompt-bank prompts/bank/full_study.jsonl \
+  --n-samples 5 \
+  --max-tokens 4096 \
+  --concurrency 5 \
+  --provider-preferences configs/provider_preferences.logprob_probe.json \
+  --models openai/gpt-4o-mini
+```
+
+Score it:
+
+```bash
+python3 -m backend.scoring.score_run \
+  --run-id <run_id> \
+  --models openai/gpt-4o-mini
+```
+
+## Caveats
+
+- FAS is a behavioral proxy, not evidence of subjective experience.
+- Self-report is treated as one signal, not ground truth.
+- Provider routes can change over time; lock providers for reproducible comparisons.
+- The prompt bank is enough for a public pilot, not a final benchmark.

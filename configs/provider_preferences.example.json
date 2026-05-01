@@ -1,0 +1,11 @@
+{
+  "default": {
+    "require_parameters": true,
+    "allow_fallbacks": false
+  },
+  "openai/gpt-4o-mini": {
+    "require_parameters": true,
+    "allow_fallbacks": false,
+    "order": ["openai"]
+  }
+}

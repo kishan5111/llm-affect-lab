@@ -1,0 +1,15 @@
+[project]
+name = "llm-affect-lab"
+version = "0.1.0"
+description = "Pilot pipeline for measuring functional affect signatures across LLMs."
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27.0",
+    "pydantic>=2.7.0",
+    "python-dotenv>=1.0.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+

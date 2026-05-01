@@ -1,0 +1,6 @@
+{
+  "default": {
+    "require_parameters": true,
+    "allow_fallbacks": false
+  }
+}

@@ -1,0 +1,18 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Reference prototype, intentionally excluded from the runnable package.
+utility/
+
+# Experiment outputs can be regenerated and may become large.
+data/
+reports/
+
+# Public writeups are exported to the Hugging Face dataset, not committed here.
+RESULTS.md
+METHODOLOGY.md
+project.md
+PROJECT.md
