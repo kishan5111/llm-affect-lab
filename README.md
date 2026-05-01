@@ -33,7 +33,7 @@ Important dataset paths:
 
 - `raw/`: raw model response JSONL
 - `processed/`: FAS-scored JSONL
-- `tables/full_study_samples.csv`: sample-level CSV for browsing model, prompt, generated answer, mean logprob, and FAS fields
+- `full_study_samples.csv`: sample-level CSV for browsing model, prompt, generated answer, mean logprob, and FAS fields
 - `results/`: aggregate fingerprints
 - `prompts/`: prompt banks
 

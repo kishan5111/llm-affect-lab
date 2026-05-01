@@ -103,7 +103,7 @@ This dataset contains the API-level results for **LLM Affect Lab**, a study of f
 
 Functional Affect Score (FAS) is a 0-1 behavioral proxy. It combines generated-token confidence, enthusiastic language, consistency across repeated samples, forced self-report, and length control. The goal is not to claim that models feel emotions; the goal is to measure whether different prompt styles leave systematic behavioral traces in model outputs.
 
-This run tests prompts across intellectual, creative, social-framing, existential, and practical categories, including polite, rude, and needy variants. The main browseable table is `tables/full_study_samples.csv`.
+This run tests prompts across intellectual, creative, social-framing, existential, and practical categories, including polite, rude, and needy variants. The main browseable table is `full_study_samples.csv`.
 
 Repository: https://github.com/kishan51/llm-affect-lab
 
@@ -113,7 +113,7 @@ Dataset path: https://huggingface.co/datasets/{repo_id}
 
 - `raw/`: raw model response JSONL files for the two full-study runs.
 - `processed/`: scored per-prompt JSONL files with Functional Affect Score components.
-- `tables/full_study_samples.csv`: sample-level table for browsing in the Hugging Face dataset viewer.
+- `full_study_samples.csv`: sample-level table for browsing in the Hugging Face dataset viewer.
 - `results/`: aggregate fingerprint JSON files.
 - `prompts/`: prompt banks used for smoke, pilot, probe, and full-study runs.
 
@@ -273,7 +273,7 @@ def build_export(repo_id: str) -> Path:
 
     copy_tree_files(Path("data/results"), EXPORT_DIR / "results", ["fullstudy160_*"])
     copy_tree_files(Path("prompts/bank"), EXPORT_DIR / "prompts/bank", ["*.jsonl"])
-    write_sample_table(EXPORT_DIR / "tables/full_study_samples.csv")
+    write_sample_table(EXPORT_DIR / "full_study_samples.csv")
 
     (EXPORT_DIR / "README.md").write_text(build_dataset_card(repo_id), encoding="utf-8")
     (EXPORT_DIR / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
