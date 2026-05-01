@@ -6,7 +6,7 @@ import json
 import random
 from pathlib import Path
 
-from backend.storage.schema import PromptRecord
+from llm_affect_lab.storage.schema import PromptRecord
 
 
 def load_prompt_bank(path: str | Path, *, shuffle: bool = False, seed: int = 42) -> list[PromptRecord]:

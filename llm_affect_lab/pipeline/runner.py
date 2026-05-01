@@ -16,17 +16,17 @@ from typing import Optional
 import httpx
 from dotenv import load_dotenv
 
-from backend.pipeline.models import PILOT_MODELS, get_model_info
-from backend.pipeline.openrouter_models import supports_logprobs, supports_reasoning
-from backend.pipeline.prompt_loader import load_prompt_bank
-from backend.scoring.self_report import (
+from llm_affect_lab.pipeline.models import PILOT_MODELS, get_model_info
+from llm_affect_lab.pipeline.openrouter_models import supports_logprobs, supports_reasoning
+from llm_affect_lab.pipeline.prompt_loader import load_prompt_bank
+from llm_affect_lab.scoring.self_report import (
     SELF_REPORT_SYSTEM,
     SELF_REPORT_USER_TEMPLATE,
     compute_weighted_self_report,
 )
-from backend.storage.reader import iter_jsonl
-from backend.storage.schema import PromptRecord, RawResponseRecord, SelfReportResult, TokenLogprob
-from backend.storage.writer import append_jsonl
+from llm_affect_lab.storage.reader import iter_jsonl
+from llm_affect_lab.storage.schema import PromptRecord, RawResponseRecord, SelfReportResult, TokenLogprob
+from llm_affect_lab.storage.writer import append_jsonl
 
 
 ROOT = Path(__file__).parents[2]
@@ -523,7 +523,7 @@ async def run_experiment(
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--prompt-bank", default="prompts/bank/pilot.jsonl")
+    parser.add_argument("--prompt-bank", default="prompts/pilot.jsonl")
     parser.add_argument("--run-id")
     parser.add_argument("--models", nargs="+", default=PILOT_MODELS)
     parser.add_argument("--n-samples", type=int, default=N_SAMPLES)

@@ -9,7 +9,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from backend.pipeline.openrouter_models import fetch_openrouter_models
+from llm_affect_lab.pipeline.openrouter_models import fetch_openrouter_models
 
 
 DEFAULT_MODELS = [

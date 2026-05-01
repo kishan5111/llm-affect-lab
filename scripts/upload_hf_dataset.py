@@ -158,7 +158,6 @@ This is not evidence that LLMs literally feel emotion. FAS is a behavioral proxy
 
 - Dataset: https://huggingface.co/datasets/{repo_id}
 - Code: https://github.com/kishan51/llm-affect-lab
-- Copyright: 2026 Kishan Vavdara
 """
 
 
@@ -277,7 +276,7 @@ def build_export(repo_id: str) -> Path:
         )
 
     copy_tree_files(Path("data/results"), EXPORT_DIR / "results", ["fullstudy160_*"])
-    copy_tree_files(Path("prompts/bank"), EXPORT_DIR / "prompts/bank", ["*.jsonl"])
+    copy_tree_files(Path("prompts"), EXPORT_DIR / "prompts", ["*.jsonl"])
     write_sample_table(EXPORT_DIR / "full_study_samples.csv")
 
     (EXPORT_DIR / "README.md").write_text(build_dataset_card(repo_id), encoding="utf-8")

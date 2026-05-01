@@ -37,25 +37,6 @@ Important dataset paths:
 - `results/`: aggregate fingerprints
 - `prompts/`: prompt banks
 
-## Citation
-
-```bibtex
-@misc{vavdara2026llmaffectlab,
-  title        = {LLM Affect Lab: Measuring Functional Affect Signatures in Language Model Behavior},
-  author       = {Kishan Vavdara},
-  year         = {2026},
-  howpublished = {Hugging Face dataset},
-  url          = {https://huggingface.co/datasets/kishan51/llm-affect-lab},
-  note         = {Code: https://github.com/kishan51/llm-affect-lab}
-}
-```
-
-## Links
-
-- Dataset: https://huggingface.co/datasets/kishan51/llm-affect-lab
-- Code: https://github.com/kishan51/llm-affect-lab
-- Copyright: 2026 Kishan Vavdara
-
 ## What Is FAS?
 
 Functional Affect Score is a 0-1 behavioral proxy combining:
@@ -80,10 +61,10 @@ Large or generated artifacts are kept out of Git and uploaded to Hugging Face in
 
 ## Repository Layout
 
-- `backend/pipeline/`: OpenRouter runner and model execution
-- `backend/scoring/`: FAS and self-report scoring
-- `backend/storage/`: JSONL storage helpers and schemas
-- `prompts/bank/`: prompt banks
+- `llm_affect_lab/pipeline/`: OpenRouter runner and model execution
+- `llm_affect_lab/scoring/`: FAS and self-report scoring
+- `llm_affect_lab/storage/`: JSONL storage helpers and schemas
+- `prompts/`: prompt banks
 - `configs/`: provider/model configuration
 - `scripts/`: run, audit, report, and HF upload scripts
 
@@ -122,9 +103,9 @@ python3 scripts/upload_hf_dataset.py --build-only
 Set `OPENROUTER_API_KEY` in `.env`, then run:
 
 ```bash
-python3 -m backend.pipeline.runner \
+python3 -m llm_affect_lab.pipeline.runner \
   --run-id <run_id> \
-  --prompt-bank prompts/bank/full_study.jsonl \
+  --prompt-bank prompts/full_study.jsonl \
   --n-samples 5 \
   --max-tokens 4096 \
   --concurrency 5 \
@@ -135,7 +116,7 @@ python3 -m backend.pipeline.runner \
 Score it:
 
 ```bash
-python3 -m backend.scoring.score_run \
+python3 -m llm_affect_lab.scoring.score_run \
   --run-id <run_id> \
   --models openai/gpt-4o-mini
 ```
@@ -146,3 +127,21 @@ python3 -m backend.scoring.score_run \
 - Self-report is treated as one signal, not ground truth.
 - Provider routes can change over time; lock providers for reproducible comparisons.
 - The prompt bank is enough for a public pilot, not a final benchmark.
+
+## Citation
+
+```bibtex
+@misc{vavdara2026llmaffectlab,
+  title        = {LLM Affect Lab: Measuring Functional Affect Signatures in Language Model Behavior},
+  author       = {Kishan Vavdara},
+  year         = {2026},
+  howpublished = {Hugging Face dataset},
+  url          = {https://huggingface.co/datasets/kishan51/llm-affect-lab},
+  note         = {Code: https://github.com/kishan51/llm-affect-lab}
+}
+```
+
+## Links
+
+- Dataset: https://huggingface.co/datasets/kishan51/llm-affect-lab
+- Code: https://github.com/kishan51/llm-affect-lab

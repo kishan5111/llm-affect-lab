@@ -9,16 +9,16 @@ MODELS=(
   "openai/gpt-oss-120b"
 )
 
-python3 -m backend.pipeline.runner \
+python3 -m llm_affect_lab.pipeline.runner \
   --run-id "$RUN_ID" \
-  --prompt-bank prompts/bank/full_study.jsonl \
+  --prompt-bank prompts/full_study.jsonl \
   --n-samples 5 \
   --max-tokens 4096 \
   --concurrency 5 \
   --provider-preferences configs/provider_preferences.logprob_probe.json \
   --models "${MODELS[@]}"
 
-python3 -m backend.scoring.score_run \
+python3 -m llm_affect_lab.scoring.score_run \
   --run-id "$RUN_ID" \
   --models "${MODELS[@]}"
 

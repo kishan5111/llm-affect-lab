@@ -16,4 +16,4 @@ if [[ $# -eq 0 ]]; then
     qwen/qwen-2.5-72b-instruct
 fi
 
-python3 -m backend.scoring.score_run --run-id "$RUN_ID" --models "$@"
+python3 -m llm_affect_lab.scoring.score_run --run-id "$RUN_ID" --models "$@"

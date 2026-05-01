@@ -9,8 +9,8 @@ from pathlib import Path
 
 import httpx
 
-from backend.pipeline.runner import raw_path_for, run_self_report
-from backend.storage.schema import PromptRecord
+from llm_affect_lab.pipeline.runner import raw_path_for, run_self_report
+from llm_affect_lab.storage.schema import PromptRecord
 
 
 async def backfill_model(model_slug: str, run_id: str) -> None:

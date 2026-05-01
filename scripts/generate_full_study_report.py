@@ -513,7 +513,7 @@ Avoid overclaiming:
 
 ## Reproducibility
 
-- Prompt bank: `prompts/bank/full_study.jsonl`
+- Prompt bank: `prompts/full_study.jsonl`
 - Scored outputs: `data/processed/*/*_scores.jsonl`
 - Raw outputs: `data/raw/*/*.jsonl`
 - Audit files: `data/audits/fullstudy160_*`

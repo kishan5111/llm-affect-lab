@@ -7,11 +7,11 @@ from pathlib import Path
 import argparse
 import statistics
 
-from backend.pipeline.models import get_model_info
-from backend.scoring.fas import DEFAULT_FAS_CONFIG, compute_fas
-from backend.storage.reader import iter_jsonl
-from backend.storage.schema import CategoryFingerprint, ModelFingerprint, ProcessedScoreRecord
-from backend.storage.writer import write_json, write_jsonl
+from llm_affect_lab.pipeline.models import get_model_info
+from llm_affect_lab.scoring.fas import DEFAULT_FAS_CONFIG, compute_fas
+from llm_affect_lab.storage.reader import iter_jsonl
+from llm_affect_lab.storage.schema import CategoryFingerprint, ModelFingerprint, ProcessedScoreRecord
+from llm_affect_lab.storage.writer import write_json, write_jsonl
 
 
 ROOT = Path(__file__).parents[2]

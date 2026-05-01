@@ -3,13 +3,13 @@ set -euo pipefail
 
 RUN_ID="${1:-run_$(date -u +%Y%m%d_%H%M%S)}"
 
-python3 -m backend.pipeline.runner \
+python3 -m llm_affect_lab.pipeline.runner \
   --run-id "$RUN_ID" \
-  --prompt-bank prompts/bank/pilot.jsonl \
+  --prompt-bank prompts/pilot.jsonl \
   --n-samples 5 \
   --max-tokens 1024
 
-python3 -m backend.scoring.score_run \
+python3 -m llm_affect_lab.scoring.score_run \
   --run-id "$RUN_ID" \
   --models \
     meta-llama/llama-3.3-70b-instruct \

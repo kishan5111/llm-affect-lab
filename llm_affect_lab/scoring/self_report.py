@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 import re
 
-from backend.storage.schema import SelfReportResult
+from llm_affect_lab.storage.schema import SelfReportResult
 
 DIGIT_TOKENS = [str(d) for d in range(10)]
 THINK_BLOCK_RE = re.compile(r"<think>.*?</think>", re.IGNORECASE | re.DOTALL)

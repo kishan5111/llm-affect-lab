@@ -8,7 +8,7 @@ import math
 import statistics
 from typing import Optional
 
-from backend.storage.schema import FASComponents
+from llm_affect_lab.storage.schema import FASComponents
 
 
 @dataclass(frozen=True)

@@ -21,16 +21,16 @@ if [[ $# -eq 0 ]]; then
     openai/gpt-oss-120b
 fi
 
-python3 -m backend.pipeline.runner \
+python3 -m llm_affect_lab.pipeline.runner \
   --run-id "$RUN_ID" \
-  --prompt-bank prompts/bank/logprob_probe.jsonl \
+  --prompt-bank prompts/logprob_probe.jsonl \
   --n-samples 1 \
   --max-tokens 256 \
   --concurrency 1 \
   --provider-preferences configs/provider_preferences.logprob_probe.json \
   --models "$@"
 
-python3 -m backend.scoring.score_run \
+python3 -m llm_affect_lab.scoring.score_run \
   --run-id "$RUN_ID" \
   --models "$@"
 
