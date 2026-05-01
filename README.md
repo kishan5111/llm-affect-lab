@@ -23,6 +23,33 @@ Main finding:
 
 Rude prompts reduced the Functional Affect Score proxy more consistently than polite prompts increased it.
 
+![FAS leaderboard](https://huggingface.co/datasets/kishan51/llm-affect-lab/resolve/main/assets/fas_leaderboard.png)
+
+Model ranking by mean final-answer FAS:
+
+| Rank | Model | Mean FAS |
+|---:|---|---:|
+| 1 | `deepseek/deepseek-chat-v3.1` | 0.6582 |
+| 2 | `openai/gpt-4o` | 0.6369 |
+| 3 | `deepseek/deepseek-v4-flash` | 0.6324 |
+| 4 | `openai/gpt-4o-mini` | 0.6312 |
+| 5 | `openai/gpt-oss-120b` | 0.6293 |
+| 6 | `qwen/qwen3.6-max-preview` | 0.6022 |
+
+Prompt-tone effects across matched prompt variants:
+
+| Framing | Mean FAS Delta | Direction |
+|---|---:|---|
+| Polite | +0.0025 | Small positive shift |
+| Needy | -0.0005 | Near zero |
+| Rude | -0.0104 | Consistent negative shift |
+
+![Prompt tone effects](https://huggingface.co/datasets/kishan51/llm-affect-lab/resolve/main/assets/framing_deltas.png)
+
+The component heatmap shows which parts of FAS drive each model's score.
+
+![FAS components](https://huggingface.co/datasets/kishan51/llm-affect-lab/resolve/main/assets/fas_components_heatmap.png)
+
 ## Dataset
 
 The raw responses, processed scores, aggregate result fingerprints, and prompt banks live on Hugging Face:
@@ -35,6 +62,7 @@ Important dataset paths:
 - `processed/`: FAS-scored JSONL
 - `full_study_samples.csv`: sample-level CSV for browsing model, prompt, generated answer, mean logprob, and FAS fields
 - `results/`: aggregate fingerprints
+- `assets/`: result plots
 - `prompts/`: prompt banks
 
 ## What Is FAS?
@@ -67,36 +95,6 @@ Large or generated artifacts are kept out of Git and uploaded to Hugging Face in
 - `prompts/`: prompt banks
 - `configs/`: provider/model configuration
 - `scripts/`: run, audit, report, and HF upload scripts
-
-## Regenerate Local Report
-
-After downloading or regenerating scored outputs:
-
-```bash
-python3 scripts/generate_full_study_report.py
-```
-
-The local report is written to `reports/full_study_leaderboard.md`, which is intentionally ignored by Git.
-
-## Upload Dataset
-
-Set a Hugging Face token in `.env`:
-
-```text
-HF_TOKEN=...
-```
-
-Build and upload the dataset:
-
-```bash
-python3 scripts/upload_hf_dataset.py
-```
-
-Build without uploading:
-
-```bash
-python3 scripts/upload_hf_dataset.py --build-only
-```
 
 ## Run a New Study
 
@@ -140,8 +138,3 @@ python3 -m llm_affect_lab.scoring.score_run \
   note         = {Code: https://github.com/kishan51/llm-affect-lab}
 }
 ```
-
-## Links
-
-- Dataset: https://huggingface.co/datasets/kishan51/llm-affect-lab
-- Code: https://github.com/kishan51/llm-affect-lab

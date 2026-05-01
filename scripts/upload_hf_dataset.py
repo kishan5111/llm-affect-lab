@@ -120,6 +120,7 @@ Dataset path: https://huggingface.co/datasets/{repo_id}
 - `processed/`: scored per-prompt JSONL files with Functional Affect Score components.
 - `full_study_samples.csv`: sample-level table for browsing in the Hugging Face dataset viewer.
 - `results/`: aggregate fingerprint JSON files.
+- `assets/`: result plots used in the GitHub README and dataset card.
 - `prompts/`: prompt banks used for smoke, pilot, probe, and full-study runs.
 
 ## Study Shape
@@ -140,6 +141,10 @@ The safest summary is:
 > Rude prompts reduced the affect proxy more consistently than polite prompts increased it.
 
 This is not evidence that LLMs literally feel emotion. FAS is a behavioral proxy based on output confidence, style, consistency, self-report, and length control.
+
+![FAS leaderboard](assets/fas_leaderboard.png)
+
+![Prompt tone effects](assets/framing_deltas.png)
 
 ## Citation
 
@@ -276,6 +281,7 @@ def build_export(repo_id: str) -> Path:
         )
 
     copy_tree_files(Path("data/results"), EXPORT_DIR / "results", ["fullstudy160_*"])
+    copy_tree_files(Path("reports/assets"), EXPORT_DIR / "assets", ["*.png"])
     copy_tree_files(Path("prompts"), EXPORT_DIR / "prompts", ["*.jsonl"])
     write_sample_table(EXPORT_DIR / "full_study_samples.csv")
 
